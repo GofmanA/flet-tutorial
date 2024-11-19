@@ -7,14 +7,18 @@ def main(page: ft.Page):
     task_input = ft.TextField(label="Введите задачу")
 
     def add_task(e):
-        tasks.controls.append(
-            ft.Row(
-                [
-                    ft.Checkbox(label=task_input.value),
-                ]
-            )
+        task_row = ft.Row(
+            [
+                ft.Checkbox(label=task_input.value),
+                ft.IconButton(icon=ft.icons.DELETE, on_click=lambda event: remove_task(task_row)),
+            ]
         )
+        tasks.controls.append(task_row)
         task_input.value = ""  # Очистить поле
+        page.update()
+
+    def remove_task(task_row):
+        tasks.controls.remove(task_row)
         page.update()
 
     def clear_tasks(e):
