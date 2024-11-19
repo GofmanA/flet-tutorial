@@ -17,6 +17,15 @@ def main(page: ft.Page):
         task_input.value = ""  # Очистить поле
         page.update()
 
-    page.add(task_input, ft.ElevatedButton("Добавить задачу", on_click=add_task), tasks)
+    def clear_tasks(e):
+        tasks.controls.clear()
+        page.update()
+
+    page.add(
+        task_input,
+        ft.ElevatedButton("Добавить задачу", on_click=add_task),
+        tasks,
+        ft.ElevatedButton("Очистить задачи", on_click=clear_tasks)
+    )
 
 ft.app(target=main)
