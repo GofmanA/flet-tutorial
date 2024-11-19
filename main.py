@@ -7,8 +7,13 @@ def main(page: ft.Page):
     task_input = ft.TextField(label="Введите задачу")
 
     def add_task(e):
-        tasks.controls.append(ft.Text(task_input.value)) # У текстого поля берем значение
-                                                         # и добавляем в колонку
+        tasks.controls.append(
+            ft.Row(
+                [
+                    ft.Checkbox(label=task_input.value),
+                ]
+            )
+        )
         task_input.value = ""  # Очистить поле
         page.update()
 
