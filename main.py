@@ -1,5 +1,6 @@
 import flet as ft
 
+
 def main(page: ft.Page):
     page.title = "Менеджер задач"
 
@@ -11,7 +12,9 @@ def main(page: ft.Page):
             [
                 ft.Checkbox(
                     label=task_input.value,
-                    on_change=lambda event: update_task(task_row),  # Функция для изменения цвета
+                    on_change=lambda event: update_task(
+                        task_row
+                    ),  # Функция для изменения цвета
                 ),
                 ft.IconButton(
                     icon=ft.icons.DELETE,
@@ -26,7 +29,6 @@ def main(page: ft.Page):
     def update_task(task_row: ft.Row):
         checkbox: ft.Checkbox = task_row.controls[0]
         if checkbox.value:  # Если задача выполнена
-            print(checkbox.label_style)
             checkbox.label_style = ft.TextStyle(color=ft.colors.GREEN)
         else:  # Если задача не выполнена
             checkbox.label_style.color = None
@@ -40,11 +42,17 @@ def main(page: ft.Page):
         tasks.controls.clear()
         page.update()
 
+    def change_theme(e):
+        page.theme_mode = "light" if page.theme_mode == "dark" else "dark"
+        page.update()
+
     page.add(
+        ft.ElevatedButton("Поменять тему", on_click=change_theme),
         task_input,
         ft.ElevatedButton("Добавить задачу", on_click=add_task),
         tasks,
-        ft.ElevatedButton("Очистить задачи", on_click=clear_tasks)
+        ft.ElevatedButton("Очистить задачи", on_click=clear_tasks),
     )
+
 
 ft.app(target=main)
